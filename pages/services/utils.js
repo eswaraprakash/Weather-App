@@ -1,5 +1,6 @@
 import { convertTime, kmToM, mpsToMph, timeToAMPM } from "./converters";
 
+//isPM Check if the time is PM.
 export const isPM = (time) => {
   let hours = time.split(":")[0];
   if (hours >= 12) {
@@ -8,6 +9,8 @@ export const isPM = (time) => {
     return "AM";
   }
 };
+
+// Metric System and Imperial System Conversion Checkers.
 
 export const getWindSpeed = (systemUsed, windInMph) =>
   systemUsed == "metric" ? windInMph : mpsToMph(windInMph);
@@ -24,5 +27,7 @@ export const getTime = (systemUsed, currentTime, timezone) =>
       }`
     : timeToAMPM(convertTime(currentTime, timezone)[0]);
 
+    
+// PM Conversion for Imperial System.
 export const getAMPM = (systemUsed, currentTime, timezone) =>
   systemUsed == "imperial" ? isPM(convertTime(currentTime, timezone)[0]) : "";

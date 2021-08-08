@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
 
+//Metric Card UI
+
 const MetricCard = ({ title, iconSrc, metric, unit = "", styles }) => {
   return (
     <div className={styles.statsCard}>

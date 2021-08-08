@@ -6,10 +6,10 @@ import { convertTime, ctoF, timeToAMPM } from "./services/converters";
 import { isPM } from "./services/utils";
 
 export default function Home() {
-  const [input, setInput] = useState("Riga");
+  const [input, setInput] = useState("Chennai");
   const [systemUsed, setSystemUsed] = useState("metric");
   const [weatherData, setWeatherData] = useState();
-
+ // Method to fetch data from API.
   const getData = async () => {
     const res = await fetch("api/data", {
       method: "POST",
@@ -21,22 +21,26 @@ export default function Home() {
     setWeatherData({ ...data });
     setInput("");
   };
-
+  // When User Enters the city and press Enter, fetch data from API.
   const enterKeydown = (event) => {
     if (event.keyCode === 13) {
       getData();
     }
   };
 
+  // UseEffect to fetch data from API.
   useEffect(() => {
     getData();
   }, []);
 
+  // Type of units used in the app selection.
   const changeSystem = () =>
     systemUsed == "metric"
       ? setSystemUsed("imperial")
       : setSystemUsed("metric");
 
+
+  // Weekday data.
   var weekday = [
     "Sunday",
     "Monday",
@@ -46,7 +50,8 @@ export default function Home() {
     "Friday",
     "Saturday",
   ];
-
+  
+  // Method to Return the Data and Elements.
   return weatherData && !weatherData.message ? (
     <div className={styles.wrapper}>
       <div className={styles.weatherWrapper}>

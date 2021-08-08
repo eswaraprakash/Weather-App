@@ -8,6 +8,7 @@ import {
 } from "../services/utils";
 import MetricCard from "./MetricCard";
 
+// Metrics component.
 const Metrics = ({ styles, data, systemUsed }) => {
   return (
     <div className={styles.statsBox}>
