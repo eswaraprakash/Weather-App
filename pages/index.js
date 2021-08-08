@@ -3,7 +3,7 @@ import styles from "../styles/Home.module.css";
 import Image from "next/image";
 
 export default function Home() {
-  const [input, setInput] = useState("Riga");
+  const [input, setInput] = useState("Chennai");
   const [systemUsed, setSystemUsed] = useState("metric");
   const [weatherData, setWeatherData] = useState();
 
