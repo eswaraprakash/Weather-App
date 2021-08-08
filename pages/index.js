@@ -27,7 +27,7 @@ export default function Home() {
 
   useEffect(() => {
     getData();
-  }, []);
+  });
 
   function degToCompass(num) {
     var val = Math.floor(num / 22.5 + 0.5);
