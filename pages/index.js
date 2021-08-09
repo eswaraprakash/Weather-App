@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
-import { degToCompass, convertTime, ctoF, mpsToMph, kmToM, timeToAMPM, isPM } from '../utlilites/utils.js'; //utlity file.
+import { degToCompass, convertTime, ctoF, mpsToMph, kmToM, timeToAMPM, isPM } from '../utilities/utils.js'; //utlity file.
 
 export default function Home() {
   const [input, setInput] = useState("Chennai"); // default city
