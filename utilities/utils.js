@@ -1,52 +1,28 @@
-export function degToCompass(num) {
-    var val = Math.floor(num / 22.5 + 0.5);
-    var arr = [
-      "N",
-      "NNE",
-      "NE",
-      "ENE",
-      "E",
-      "ESE",
-      "SE",
-      "S/SE",
-      "S",
-      "SSW",
-      "SW",
-      "WSW",
-      "W",
-      "WNW",
-      "NW",
-      "NNW",
-    ];
-    return arr[val % 16];
+import { convertTime, kmToM, mpsToMph, timeToAMPM } from "./converters";
+
+export const isPM = (time) => {
+  let hours = time.split(":")[0];
+  if (hours >= 12) {
+    return "PM";
+  } else {
+    return "AM";
   }
+};
 
-  export const convertTime = (unixSeconds, timezone) => {
-    const time = new Date((unixSeconds + timezone) * 1000)
-      .toISOString()
-      .match(/(\d{2}:\d{2})/);
+export const getWindSpeed = (systemUsed, windInMph) =>
+  systemUsed == "metric" ? windInMph : mpsToMph(windInMph);
 
-    return time;
-  };
+export const getVisibility = (systemUsed, visibilityInKm) =>
+  systemUsed == "metric"
+    ? (visibilityInKm / 1000).toPrecision(2)
+    : kmToM(visibilityInKm / 1000);
 
- export const ctoF = (c) => (c * 9) / 5 + 32;
- export const mpsToMph = (mps) => (mps * 2.236936).toFixed(2);
- export const kmToM = (km) => (km / 1.609).toFixed(1);
+export const getTime = (systemUsed, currentTime, timezone) =>
+  systemUsed == "metric"
+    ? `${parseInt(convertTime(currentTime, timezone)[0].split(":")[0])}:${
+        convertTime(currentTime, timezone)[0].split(":")[1]
+      }`
+    : timeToAMPM(convertTime(currentTime, timezone)[0]);
 
- export const timeToAMPM = (time) => {
-    let hours = time.split(":")[0];
-    let minutes = time.split(":")[1];
-    hours = hours % 12;
-    hours = hours ? hours : 12;
-    return hours + ":" + minutes;
-  };
-
-  export const isPM = (time) => {
-    let hours = time.split(":")[0];
-    if (hours >= 12) {
-      return "PM";
-    } else {
-      return "AM";
-    }
-  };
-  
+export const getAMPM = (systemUsed, currentTime, timezone) =>
+  systemUsed == "imperial" ? isPM(convertTime(currentTime, timezone)[0]) : "";
