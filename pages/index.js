@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
+import { degToCompass, convertTime, ctoF, mpsToMph, kmToM, timeToAMPM, isPM } from './utils.js'; //utlity file.
 
 export default function Home() {
-  const [input, setInput] = useState("Chennai");
-  const [systemUsed, setSystemUsed] = useState("metric");
+  const [input, setInput] = useState("Chennai"); // default city
+  const [systemUsed, setSystemUsed] = useState("metric"); // default system
   const [weatherData, setWeatherData] = useState();
 
+  // function to get weather data.
   const getData = async () => {
     const res = await fetch("api/data", {
       method: "POST",
@@ -19,6 +21,7 @@ export default function Home() {
     setInput("");
   };
 
+  // function to capture the city input.
   const enterKeydown = (event) => {
     if (event.keyCode === 13) {
       getData();
@@ -29,57 +32,7 @@ export default function Home() {
     getData();
   }, []);
 
-  function degToCompass(num) {
-    var val = Math.floor(num / 22.5 + 0.5);
-    var arr = [
-      "N",
-      "NNE",
-      "NE",
-      "ENE",
-      "E",
-      "ESE",
-      "SE",
-      "S/SE",
-      "S",
-      "SSW",
-      "SW",
-      "WSW",
-      "W",
-      "WNW",
-      "NW",
-      "NNW",
-    ];
-    return arr[val % 16];
-  }
-
-  const convertTime = (unixSeconds, timezone) => {
-    const time = new Date((unixSeconds + timezone) * 1000)
-      .toISOString()
-      .match(/(\d{2}:\d{2})/);
-
-    return time;
-  };
-
-  const ctoF = (c) => (c * 9) / 5 + 32;
-  const mpsToMph = (mps) => (mps * 2.236936).toFixed(2);
-  const kmToM = (km) => (km / 1.609).toFixed(1);
-
-  const timeToAMPM = (time) => {
-    let hours = time.split(":")[0];
-    let minutes = time.split(":")[1];
-    hours = hours % 12;
-    hours = hours ? hours : 12;
-    return hours + ":" + minutes;
-  };
-
-  const isPM = (time) => {
-    let hours = time.split(":")[0];
-    if (hours >= 12) {
-      return "PM";
-    } else {
-      return "AM";
-    }
-  };
+  
 
   const changeSystem = () =>
     systemUsed == "metric"
