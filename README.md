@@ -20,7 +20,7 @@ Check the current weather on any city on the planet. Switch between metric and i
 
 ## Installation
 
-1. `git clone https://github.com/madzadev/weather-app.git`
+1. `git clone https://github.com/eswaraprakash/weather-app.git`
 
 2. `cd weather-app`
 
